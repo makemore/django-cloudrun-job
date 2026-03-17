@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-cloudrun-job"
+version = "0.1.0"
+description = "Run Django management commands as Google Cloud Run Jobs"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Make More Digital", email = "chris.barry@makemoredigital.com"}]
+classifiers = [
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.2",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "django>=4.2",
+    "google-cloud-run>=0.10.0",
+]
+
+[project.urls]
+Repository = "https://github.com/makemoredigital/django-cloudrun-job"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
