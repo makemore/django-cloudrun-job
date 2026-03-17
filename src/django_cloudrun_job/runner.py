@@ -31,6 +31,14 @@ def build_job_spec(run_v2, duration_pb2, service, container, timeout):
     Copies image, env vars, secrets, resource limits, volumes (incl.
     Cloud SQL), and service account from the service template.
     """
+    # Build job-compatible resource limits from the service container.
+    # Jobs require cpu_idle=False and don't support startup_cpu_boost.
+    resources = run_v2.ResourceRequirements(
+        limits=dict(container.resources.limits) if container.resources.limits else {},
+        cpu_idle=False,
+        startup_cpu_boost=False,
+    )
+
     return run_v2.Job(
         template=run_v2.ExecutionTemplate(
             template=run_v2.TaskTemplate(
@@ -39,7 +47,7 @@ def build_job_spec(run_v2, duration_pb2, service, container, timeout):
                         image=container.image,
                         env=list(container.env),
                         command=["python", "manage.py"],
-                        resources=container.resources,
+                        resources=resources,
                         volume_mounts=list(container.volume_mounts),
                     )
                 ],
