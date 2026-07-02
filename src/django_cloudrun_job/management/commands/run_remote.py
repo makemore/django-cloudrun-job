@@ -98,7 +98,7 @@ class Command(BaseCommand):
 
         self.stdout.write("  Waiting for completion...")
         try:
-            op.result()
+            op.result(timeout=timeout)
             self.stdout.write(self.style.SUCCESS(
                 "  Done. Job completed successfully."
             ))
